@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EcommerceWebApplication.Models.OrderTable>
+
+@{
+    ViewBag.Title = "AdminOrders";
+}
+<div class="container mt-5">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Order Id
+            </th>
+            <th>
+                User Id
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Reciver Number
+            </th>
+            <th>
+                Reciver Name
+            </th>
+            <th>
+                Total Value
+            </th>
+            <th>
+                View
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fkUserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.reciverNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.receivesName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "DetailsOrder", new { id = item.orderId }, new { @class = "btn btn-info col-md-8" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,114 @@
+﻿@model EcommerceWebApplication.Models.ViewModel.CategoryModel
+
+@{
+    ViewBag.Title = "CreateCategory";
+}
+
+@if (@Model.Level == "Edit")
+{
+
+    <div class="container d-flex" id="box">
+        <div class="col-lg-6 col-md-6" style="padding-left:5%;padding-top:5%;">
+            <h3>Edit Category</h3>
+            <br />
+            @using (Html.BeginForm("EditCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(model => model.categoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.EditorFor(model => model.categoryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.categoryName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.categoryImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            <input type="file" name="imagefile" id="imagefile" class="form-control"  />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <br />
+                            <input type="submit" value="Save" class="btn btn-primary col-md-10" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <img src=@Url.Content(Model.categoryImagePath) style="height:80%;width:100%;border-radius:15%; margin-top:10%;" />
+        </div>
+    </div>
+
+    //edit
+
+}
+else
+{
+    // create
+    <div class="container d-flex" id="box">
+        <div class="col-lg-6 col-md-6" style="padding-left:5%;padding-top:5%;">
+            <h3>Create Category</h3>
+            <br />
+            @using (Html.BeginForm("CreateCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.categoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.EditorFor(model => model.categoryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.categoryName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.categoryImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            <input type="file" name="imagefile" id="imagefile" class="form-control" required />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <br />
+                            <input type="submit" value="Create" class="btn btn-primary col-md-10" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <img src="~/Assets/Category.jpg" style="height:100%;width:100%;" />
+        </div>
+    </div>
+}
+
+
+<style>
+    #box {
+        display: flex;
+        height: 450px;
+        width: 800px;
+        border: 1px solid;
+        margin: auto;
+        margin-top: 50px;
+        box-shadow: 10px 10px 20px #4682B4;
+    }
+</style>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

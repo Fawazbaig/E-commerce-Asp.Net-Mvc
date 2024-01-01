@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container-fluid" style="height:800px;padding:0px;object-fit:contain;">
+    <div class="container-fluid img" style="background-image: url('../../Assets/front.jpg');margin-top:-12%; height:100%;width:100%; background-repeat: no-repeat; background-size: cover; ">
+        <div style="display: flex; height: 800px; justify-content: center; align-items: center;">
+            @if (Session["us_id"] != null)
+            {
+                var name = Session["us_name"].ToString();
+                <h3 id="hi" style="margin-top: 30%;">Welcome  @name</h3>
+            }
+            @if (Session["Ad_Name"] != null)
+            {
+                var a_name = Session["Ad_Name"].ToString();
+                <h3 id="hi" style="margin-top: 30%;">Welcome @a_name</h3>
+            }
+        </div>
+    </div>
+</div>
+<link href="~/Assets/StyleSheet1.css" rel="stylesheet" />

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e4ac342d370c4e958b31ff60abd3316f" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="EcommerceDbModel.AdminTable" Width="1.5" PointX="1.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDbModel.CartTable" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDbModel.CategoryTable" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDbModel.OrderTable" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDbModel.ProductTable" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDbModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDbModel.UserTable" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="EcommerceDbModel.FK_CategoryTable_AdminTable" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDbModel.FK_CartTable_ProductTable" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDbModel.FK_CartTable_UserTable" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDbModel.FK_ProductTable_CategoryTable" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDbModel.FK_OrderTable_UserTable" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDbModel.FK_ProductTable_UserTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EcommerceDbModel.orderDetailsTable" Width="1.5" PointX="5.25" PointY="8.5" />
+        <AssociationConnector Association="EcommerceDbModel.FK_orderDetailsTable_OrderTable" />
+        <AssociationConnector Association="EcommerceDbModel.FK_orderDetailsTable_UserTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

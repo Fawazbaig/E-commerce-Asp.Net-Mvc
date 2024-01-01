@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EcommerceDbModelStoreContainer" CdmEntityContainer="EcommerceDbEntities">
+    <EntitySetMapping Name="AdminTables">
+      <EntityTypeMapping TypeName="EcommerceDbModel.AdminTable">
+        <MappingFragment StoreEntitySet="AdminTable">
+          <ScalarProperty Name="adminId" ColumnName="adminId" />
+          <ScalarProperty Name="adminName" ColumnName="adminName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CartTables">
+      <EntityTypeMapping TypeName="EcommerceDbModel.CartTable">
+        <MappingFragment StoreEntitySet="CartTable">
+          <ScalarProperty Name="cartId" ColumnName="cartId" />
+          <ScalarProperty Name="fkProductId" ColumnName="fkProductId" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="fkUserId" ColumnName="fkUserId" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategoryTables">
+      <EntityTypeMapping TypeName="EcommerceDbModel.CategoryTable">
+        <MappingFragment StoreEntitySet="CategoryTable">
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+          <ScalarProperty Name="categoryImagePath" ColumnName="categoryImagePath" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="fkCreatedByAdminId" ColumnName="fkCreatedByAdminId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderTables">
+      <EntityTypeMapping TypeName="EcommerceDbModel.OrderTable">
+        <MappingFragment StoreEntitySet="OrderTable">
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+          <ScalarProperty Name="receivesName" ColumnName="receivesName" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="fkUserId" ColumnName="fkUserId" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="reciverNumber" ColumnName="reciverNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTables">
+      <EntityTypeMapping TypeName="EcommerceDbModel.ProductTable">
+        <MappingFragment StoreEntitySet="ProductTable">
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productImagePath" ColumnName="productImagePath" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="fkCategoryId" ColumnName="fkCategoryId" />
+          <ScalarProperty Name="fkUserId" ColumnName="fkUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="EcommerceDbModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTables">
+      <EntityTypeMapping TypeName="EcommerceDbModel.UserTable">
+        <MappingFragment StoreEntitySet="UserTable">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orderDetailsTables">
+      <EntityTypeMapping TypeName="EcommerceDbModel.orderDetailsTable">
+        <MappingFragment StoreEntitySet="orderDetailsTable">
+          <ScalarProperty Name="dateOfOrder" ColumnName="dateOfOrder" />
+          <ScalarProperty Name="totalOrderPrice" ColumnName="totalOrderPrice" />
+          <ScalarProperty Name="pricePerProduct" ColumnName="pricePerProduct" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="fkUserId" ColumnName="fkUserId" />
+          <ScalarProperty Name="fkOrderId" ColumnName="fkOrderId" />
+          <ScalarProperty Name="orderDetailId" ColumnName="orderDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

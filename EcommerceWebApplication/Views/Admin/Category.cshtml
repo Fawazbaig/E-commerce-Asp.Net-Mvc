@@ -1,0 +1,220 @@
+﻿@model PagedList.IPagedList<EcommerceWebApplication.Models.CategoryTable>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Category";
+}
+
+
+
+<div class="container-fluid mt-2" style="display: flex; justify-content: end; padding-right: 3.5%; ">
+
+    <form class="form-inline my-2 my-lg-0">
+        @using (Html.BeginForm("Category", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <input class="form-control mr-sm-2" id="search" name="search" type="text" placeholder="Search" aria-label="Search" />
+
+            <input type="submit" class="btn btn-info my-2 my-sm-0 mr-sm-4" id="searchbtn" value="Search" />
+        }
+        </form>
+
+
+        <button type="submit" class="btn btn-success col-md-2" onclick="Toggle()" id="btn">Table View</button>
+</div>
+<div class="view" id="grid" style="display:block;">
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+
+                <div class="card-container search col-lg-4 col-md-4">
+                    <div class="card">
+                        <img src="@Url.Content(item.categoryImagePath)" class="pb-1" style="border-bottom: 1px solid black;" />
+                        <h3 style="display:flex; justify-content:center; margin-top:4%;margin-bottom:5%;">@item.categoryName</h3>
+                        <div class="card-containt" style="display:flex; justify-content:center;">
+                            @if (Convert.ToInt32(Session["Ad_id"]) == Convert.ToInt32(item.fkCreatedByAdminId))
+                            {
+
+                                @Html.ActionLink("Delete", "DeleteCategory", "Admin", new { id = @item.categoryId }, new { @class = "btn btn-danger col-md-3", style = "margin-right: 10px;" })
+                                @Html.ActionLink("Edit", "EditCategory", "Admin", new { id = @item.categoryId }, new { @class = "btn btn-warning col-md-3", style = "margin-right: 10px;" })
+                                @Html.ActionLink("View", "DisplayAd", "Home", new { id = @item.categoryId }, new { @class = "btn btn-primary col-md-3" })
+                            }
+
+                            else
+                            {
+                                @Html.ActionLink("View", "DisplayAd", "Home", new { id = @item.categoryId }, new { @class = "btn btn-primary" })
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            }
+        }
+        <div id="container">
+            <div class="pagination container">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                of @Model.PageCount
+                <div style="padding-left:2%;">
+                    @Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container mt-3" id="tables" style="display:none">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                <h5>Category Name</h5>
+            </th>
+            <th>
+                <h5>Category Iamge</h5>
+            </th>
+            <th>
+                <h5>Action</h5>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="search">
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoryName)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.categoryImagePath)" style="width:10%; height:10%;" />
+                </td>
+                <td>
+                    @if (Convert.ToInt32(Session["Ad_id"]) == Convert.ToInt32(item.fkCreatedByAdminId))
+                    {
+
+                        @Html.ActionLink("Delete", "DeleteCategory", "Admin", new { id = @item.categoryId }, new { @class = "btn btn-danger col-md-3", style = "margin-right: 10px;" })
+                        @Html.ActionLink("Edit", "EditCategory", "Admin", new { id = @item.categoryId }, new { @class = "btn btn-warning col-md-3", style = "margin-right: 10px;" })
+                        @Html.ActionLink("View", "DisplayAd", "Home", new { id = @item.categoryId }, new { @class = "btn btn-primary col-md-3" })
+                    }
+
+                    else
+                    {
+                        @Html.ActionLink("View", "DisplayAd", "Home", new { id = @item.categoryId }, new { @class = "btn btn-primary" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <div id="container">
+        <div class="pagination container">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            <div style="padding-left:2%;">
+                @Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .view {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        /*margin-top: 50px;*/
+        padding-left: 5%;
+    }
+
+    .card {
+        width: 300px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+        margin: 20px;
+        height: 325px;
+    }
+
+        .card img {
+            width: 100%;
+            height: 60%;
+        }
+
+
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.pagination li {
+        display: inline;
+        border: 1px solid black;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 2px 8px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        ul.pagination li.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+</style>
+
+
+
+
+<script>
+    var toggleBtn = true;
+    function Toggle() {
+        toggleBtn = !toggleBtn
+        var gridView = document.getElementById('grid')
+
+        gridView.style.display = toggleBtn ? "block" : "none"
+        var tableView = document.getElementById('tables')
+        tableView.style.display = toggleBtn ? "none" : "block"
+
+        if (gridView.style.display == 'block') {
+            document.getElementById("btn").innerHTML = "Table View"
+        } else {
+            document.getElementById("btn").innerHTML = "Grid view"
+        }
+
+    }
+</script>
+@*<script src="~/Scripts/jquery-3.4.1.min.js">
+
+</script>
+<script>
+
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#search").keyup(function () {
+            var searchtext = $("#search").val().toLowerCase();
+            $(".search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchtext)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+</script>*@

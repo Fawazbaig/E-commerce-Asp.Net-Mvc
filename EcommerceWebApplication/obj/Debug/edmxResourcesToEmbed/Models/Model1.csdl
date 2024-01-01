@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EcommerceDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdminTable">
+    <Key>
+      <PropertyRef Name="adminId" />
+    </Key>
+    <Property Name="adminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="adminName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CategoryTables" Relationship="Self.FK_CategoryTable_AdminTable" FromRole="AdminTable" ToRole="CategoryTable" />
+  </EntityType>
+  <EntityType Name="CartTable">
+    <Key>
+      <PropertyRef Name="cartId" />
+    </Key>
+    <Property Name="cartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fkProductId" Type="Int32" Nullable="false" />
+    <Property Name="productName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fkUserId" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ProductTable" Relationship="Self.FK_CartTable_ProductTable" FromRole="CartTable" ToRole="ProductTable" />
+    <NavigationProperty Name="UserTable" Relationship="Self.FK_CartTable_UserTable" FromRole="CartTable" ToRole="UserTable" />
+  </EntityType>
+  <EntityType Name="CategoryTable">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="categoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="categoryImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="fkCreatedByAdminId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AdminTable" Relationship="Self.FK_CategoryTable_AdminTable" FromRole="CategoryTable" ToRole="AdminTable" />
+    <NavigationProperty Name="ProductTables" Relationship="Self.FK_ProductTable_CategoryTable" FromRole="CategoryTable" ToRole="ProductTable" />
+  </EntityType>
+  <EntityType Name="OrderTable">
+    <Key>
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="orderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fkUserId" Type="Int32" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="reciverNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UserTable" Relationship="Self.FK_OrderTable_UserTable" FromRole="OrderTable" ToRole="UserTable" />
+    <Property Name="receivesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="totalPrice" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="orderDetailsTables" Relationship="EcommerceDbModel.FK_orderDetailsTable_OrderTable" FromRole="OrderTable" ToRole="orderDetailsTable" />
+  </EntityType>
+  <EntityType Name="ProductTable">
+    <Key>
+      <PropertyRef Name="productId" />
+    </Key>
+    <Property Name="productId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="productImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="fkCategoryId" Type="Int32" Nullable="false" />
+    <Property Name="fkUserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CartTables" Relationship="Self.FK_CartTable_ProductTable" FromRole="ProductTable" ToRole="CartTable" />
+    <NavigationProperty Name="CategoryTable" Relationship="Self.FK_ProductTable_CategoryTable" FromRole="ProductTable" ToRole="CategoryTable" />
+    <NavigationProperty Name="UserTable" Relationship="Self.FK_ProductTable_UserTable" FromRole="ProductTable" ToRole="UserTable" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserTable">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CartTables" Relationship="Self.FK_CartTable_UserTable" FromRole="UserTable" ToRole="CartTable" />
+    <NavigationProperty Name="OrderTables" Relationship="Self.FK_OrderTable_UserTable" FromRole="UserTable" ToRole="OrderTable" />
+    <NavigationProperty Name="ProductTables" Relationship="Self.FK_ProductTable_UserTable" FromRole="UserTable" ToRole="ProductTable" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="orderDetailsTables" Relationship="EcommerceDbModel.FK_orderDetailsTable_UserTable" FromRole="UserTable" ToRole="orderDetailsTable" />
+  </EntityType>
+  <Association Name="FK_CategoryTable_AdminTable">
+    <End Role="AdminTable" Type="Self.AdminTable" Multiplicity="1" />
+    <End Role="CategoryTable" Type="Self.CategoryTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdminTable">
+        <PropertyRef Name="adminId" />
+      </Principal>
+      <Dependent Role="CategoryTable">
+        <PropertyRef Name="fkCreatedByAdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartTable_ProductTable">
+    <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="1" />
+    <End Role="CartTable" Type="Self.CartTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductTable">
+        <PropertyRef Name="productId" />
+      </Principal>
+      <Dependent Role="CartTable">
+        <PropertyRef Name="fkProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartTable_UserTable">
+    <End Role="UserTable" Type="Self.UserTable" Multiplicity="1" />
+    <End Role="CartTable" Type="Self.CartTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTable">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="CartTable">
+        <PropertyRef Name="fkUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductTable_CategoryTable">
+    <End Role="CategoryTable" Type="Self.CategoryTable" Multiplicity="1" />
+    <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryTable">
+        <PropertyRef Name="categoryId" />
+      </Principal>
+      <Dependent Role="ProductTable">
+        <PropertyRef Name="fkCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderTable_UserTable">
+    <End Role="UserTable" Type="Self.UserTable" Multiplicity="1" />
+    <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTable">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="OrderTable">
+        <PropertyRef Name="fkUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductTable_UserTable">
+    <End Role="UserTable" Type="Self.UserTable" Multiplicity="1" />
+    <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTable">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="ProductTable">
+        <PropertyRef Name="fkUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EcommerceDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdminTables" EntityType="Self.AdminTable" />
+    <EntitySet Name="CartTables" EntityType="Self.CartTable" />
+    <EntitySet Name="CategoryTables" EntityType="Self.CategoryTable" />
+    <EntitySet Name="OrderTables" EntityType="Self.OrderTable" />
+    <EntitySet Name="ProductTables" EntityType="Self.ProductTable" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="UserTables" EntityType="Self.UserTable" />
+    <AssociationSet Name="FK_CategoryTable_AdminTable" Association="Self.FK_CategoryTable_AdminTable">
+      <End Role="AdminTable" EntitySet="AdminTables" />
+      <End Role="CategoryTable" EntitySet="CategoryTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartTable_ProductTable" Association="Self.FK_CartTable_ProductTable">
+      <End Role="ProductTable" EntitySet="ProductTables" />
+      <End Role="CartTable" EntitySet="CartTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartTable_UserTable" Association="Self.FK_CartTable_UserTable">
+      <End Role="UserTable" EntitySet="UserTables" />
+      <End Role="CartTable" EntitySet="CartTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductTable_CategoryTable" Association="Self.FK_ProductTable_CategoryTable">
+      <End Role="CategoryTable" EntitySet="CategoryTables" />
+      <End Role="ProductTable" EntitySet="ProductTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderTable_UserTable" Association="Self.FK_OrderTable_UserTable">
+      <End Role="UserTable" EntitySet="UserTables" />
+      <End Role="OrderTable" EntitySet="OrderTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductTable_UserTable" Association="Self.FK_ProductTable_UserTable">
+      <End Role="UserTable" EntitySet="UserTables" />
+      <End Role="ProductTable" EntitySet="ProductTables" />
+    </AssociationSet>
+    <EntitySet Name="orderDetailsTables" EntityType="EcommerceDbModel.orderDetailsTable" />
+    <AssociationSet Name="FK_orderDetailsTable_OrderTable" Association="EcommerceDbModel.FK_orderDetailsTable_OrderTable">
+      <End Role="OrderTable" EntitySet="OrderTables" />
+      <End Role="orderDetailsTable" EntitySet="orderDetailsTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_orderDetailsTable_UserTable" Association="EcommerceDbModel.FK_orderDetailsTable_UserTable">
+      <End Role="UserTable" EntitySet="UserTables" />
+      <End Role="orderDetailsTable" EntitySet="orderDetailsTables" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="orderDetailsTable">
+    <Key>
+      <PropertyRef Name="orderDetailId" />
+    </Key>
+    <Property Name="orderDetailId" Type="Int32" Nullable="false" />
+    <Property Name="fkOrderId" Type="Int32" Nullable="false" />
+    <Property Name="fkUserId" Type="Int32" Nullable="false" />
+    <Property Name="productName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="pricePerProduct" Type="Int32" Nullable="false" />
+    <Property Name="totalOrderPrice" Type="Int32" Nullable="false" />
+    <Property Name="dateOfOrder" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="OrderTable" Relationship="EcommerceDbModel.FK_orderDetailsTable_OrderTable" FromRole="orderDetailsTable" ToRole="OrderTable" />
+    <NavigationProperty Name="UserTable" Relationship="EcommerceDbModel.FK_orderDetailsTable_UserTable" FromRole="orderDetailsTable" ToRole="UserTable" />
+  </EntityType>
+  <Association Name="FK_orderDetailsTable_OrderTable">
+    <End Type="EcommerceDbModel.OrderTable" Role="OrderTable" Multiplicity="1" />
+    <End Type="EcommerceDbModel.orderDetailsTable" Role="orderDetailsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderTable">
+        <PropertyRef Name="orderId" />
+      </Principal>
+      <Dependent Role="orderDetailsTable">
+        <PropertyRef Name="fkOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_orderDetailsTable_UserTable">
+    <End Type="EcommerceDbModel.UserTable" Role="UserTable" Multiplicity="1" />
+    <End Type="EcommerceDbModel.orderDetailsTable" Role="orderDetailsTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTable">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="orderDetailsTable">
+        <PropertyRef Name="fkUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

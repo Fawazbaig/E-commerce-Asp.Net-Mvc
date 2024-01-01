@@ -1,0 +1,11 @@
+﻿@font-face {
+    font-family: 'valoon';
+    src: url('../fonts/valoon.ttf') format('truetype');
+}
+
+#hi {
+    font-family: valoon;
+    font-size: 42px;
+    color: #806ee8;
+    text-shadow: 2px 2px 4px #000000;
+}
